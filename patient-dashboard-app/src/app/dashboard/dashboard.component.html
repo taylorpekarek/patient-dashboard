@@ -1,12 +1,22 @@
 <div>
   <div class="button-container">
     <button
+      *ngIf="!showPatientForm"
       class="open-form-button"
       mat-flat-button
       (click)="openPatientForm()"
     >
       <mat-icon aria-hidden="true">add</mat-icon>
       Add new patient
+    </button>
+
+    <button
+      *ngIf="showPatientForm"
+      class="open-form-button"
+      mat-flat-button
+      (click)="closePatientForm()"
+    >
+      Close
     </button>
   </div>
 

@@ -19,4 +19,8 @@ export class DashboardComponent implements OnInit {
     this.showPatientForm = true;
     // Handle opening form in either add new mode or edit mode depending on if param is passed in or not
   }
+
+  closePatientForm(): void {
+    this.showPatientForm = false;
+  }
 }
