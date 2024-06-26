@@ -1,4 +1,6 @@
 <div>
+  <app-patient-form *ngIf="showPatientForm"></app-patient-form>
+
   <div class="button-container">
     <button
       *ngIf="!showPatientForm"
@@ -13,12 +15,10 @@
     <button
       *ngIf="showPatientForm"
       class="open-form-button"
-      mat-flat-button
+      mat-stroked-button
       (click)="closePatientForm()"
     >
       Close
     </button>
   </div>
-
-  <app-patient-form *ngIf="showPatientForm"></app-patient-form>
 </div>
