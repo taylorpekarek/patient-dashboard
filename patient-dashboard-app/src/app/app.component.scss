@@ -1,0 +1,22 @@
+.page-header {
+  height: 10%;
+  background-color: #707070;
+
+  .page-title {
+    display: flex;
+
+    mat-icon {
+      padding-top: 38px;
+      padding-left: 50px;
+      padding-right: 5px;
+      color: #ffff00;
+    }
+
+    h1 {
+      padding-top: 35px;
+      color: #fcfcfc;
+    }
+  }
+
+
+}
