@@ -1,0 +1,22 @@
+mat-form-field {
+  display: block;
+  margin: 16px;
+  width: 40%;
+}
+
+.name-inputs {
+  display: flex;
+
+  mat-form-field {
+    margin-left: 15px;
+    width: 20%;
+  }
+}
+
+.address-group {
+  margin-bottom: 24px;
+}
+
+.add-address-btn {
+  margin: 10px;
+}

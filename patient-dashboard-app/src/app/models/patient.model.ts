@@ -16,8 +16,7 @@ export enum STATUS {
 }
 
 export interface IAddress {
-  street1: string;
-  street2: string;
+  street: string;
   city: string;
   state: string;
   zipCode: string;
