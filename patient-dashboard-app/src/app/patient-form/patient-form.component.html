@@ -1,6 +1,6 @@
 <div class="form-container">
   <form [formGroup]="patientForm">
-    <p>Enter your new patients information.</p>
+    <h1>Add new patient</h1>
 
     <div class="top-inputs">
       <mat-form-field>
@@ -70,7 +70,7 @@
         <button
           *ngIf="(i + 1) == addresses.controls.length"
           mat-mini-fab
-          matTooltip="Add additoinal address"
+          matTooltip="Add additional address"
           (click)="addAddress()"
         >
           <mat-icon>add</mat-icon>
@@ -78,22 +78,32 @@
       </div>
     </div>
 
+    <button
+      *ngIf="!additionalFields.controls.length"
+      mat-flat-button
+      (click)="addAdditionalField()"
+    >
+      Additional misc patient info
+      <mat-icon>add</mat-icon>
+    </button>
 
     <div formArrayName="additionalFields">
       <div *ngFor="let field of additionalFields.controls; let i=index">
         <mat-form-field appearance="fill">
-          <mat-label>Additional Field {{ i + 1 }}</mat-label>
+          <mat-label>Additional info</mat-label>
           <input matInput [formControlName]="i">
         </mat-form-field>
+
+        <button
+          *ngIf="(i + 1) == additionalFields.controls.length"
+          mat-mini-fab
+          matTooltip="Add additional patient info"
+          (click)="addAdditionalField()"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
       </div>
     </div>
-
-    <button
-      mat-flat-button
-      (click)="addAdditionalField()"
-    >
-      Add additional patient info
-    </button>
 
     <button
       mat-flat-button
