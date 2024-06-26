@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IPatient, STATUS } from '../models/patient.model';
+import { US_STATES } from '../models/us-state.model';
 
 @Component({
   selector: 'app-patient-form',
@@ -9,8 +10,9 @@ import { IPatient, STATUS } from '../models/patient.model';
 })
 export class PatientFormComponent implements OnInit {
   patientForm: FormGroup;
-  statusEnum = STATUS;
+
   statusOptions = Object.values(STATUS);
+  stateOptions = Object.values(US_STATES);
 
   get addresses() {
     return this.patientForm.get('addresses') as FormArray;
@@ -51,7 +53,7 @@ export class PatientFormComponent implements OnInit {
     this.additionalFields.push(this.fb.control(''));
   }
 
-  onSubmit(): void {
+  savePatientRecord(): void {
     // Save new patient in DB
 
     this.resetForm();
