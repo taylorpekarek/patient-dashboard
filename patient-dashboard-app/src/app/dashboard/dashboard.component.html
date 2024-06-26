@@ -1,1 +1,14 @@
-<p>dashboard works!</p>
+<div>
+  <div class="button-container">
+    <button
+      class="open-form-button"
+      mat-flat-button
+      (click)="openPatientForm()"
+    >
+      <mat-icon aria-hidden="true">add</mat-icon>
+      Add new patient
+    </button>
+  </div>
+
+  <app-patient-form *ngIf="showPatientForm"></app-patient-form>
+</div>
