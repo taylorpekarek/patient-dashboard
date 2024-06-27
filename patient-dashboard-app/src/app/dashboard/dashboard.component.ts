@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
       firstName: 'John',
       middleName: 'A.',
       lastName: 'Doe',
-      dateOfBirth: new Date('1990-01-01'),
+      dateOfBirth: new Date('1994/04/23'),
       status: STATUS.ACTIVE,
       addresses: [
         {
@@ -24,13 +24,14 @@ export class DashboardComponent implements OnInit {
       ],
       additionalInfo: [
         'Patient requires special diet',
-        'Patient likes cats'
+        'Patient likes cats',
+        'Patient eats only food that are soft, green, and have the scent of fresh rain'
       ]
     },
     {
       firstName: 'Jane',
       lastName: 'Smith',
-      dateOfBirth: new Date('1985-05-15'),
+      dateOfBirth: new Date('1994/06/28'),
       status: STATUS.INQUIRY,
       addresses: [
         {
@@ -301,5 +302,19 @@ export class DashboardComponent implements OnInit {
 
   editPatientRecord(): void {
     console.log(this.selectedPatient);
+  }
+
+  calculateAge(dateOfBirth: Date): number {
+    const today = new Date();
+    const birthDate = new Date(dateOfBirth);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+
+    // Check if the current month is before the birth month or if it's the birth month but the current day is before the birth day
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    return age;
   }
 }

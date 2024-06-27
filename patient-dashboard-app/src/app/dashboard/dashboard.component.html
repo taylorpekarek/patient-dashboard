@@ -59,27 +59,35 @@
     <div *ngIf="selectedPatient" class="patient-details">
       <mat-card appearance="outlined">
         <mat-card-header>
-          <div mat-card-avatar><mat-icon>account_circle</mat-icon></div>
+          <div mat-card-avatar>
+            <mat-icon class="icon-size">account_circle</mat-icon>
+          </div>
           <mat-card-title>{{ selectedPatient.firstName }} {{ selectedPatient?.middleName }} {{ selectedPatient.lastName }}</mat-card-title>
           <mat-card-subtitle>{{ selectedPatient.status }}</mat-card-subtitle>
         </mat-card-header>
 
         <mat-card-content class="details-content">
+          <p>
+            {{ selectedPatient.dateOfBirth | date: 'longDate' }}
+            <strong>({{ calculateAge(selectedPatient.dateOfBirth) }} years old)</strong>
+          </p>
+          <br>
+
           <ng-container *ngFor="let address of selectedPatient.addresses; let i=index">
-            <p *ngIf="selectedPatient?.addresses?.length > 1"><strong>Address {{ i + 1 }}:</strong></p>
+            <h5><strong>Address {{ i + 1 }}:</strong></h5>
             <p>{{ address.street }}</p>
             <p>{{ address.city }}, {{ address.state }} {{ address.zip }}</p>
             <br>
           </ng-container>
 
-          <p *ngIf="selectedPatient?.additionalInfo?.length"><strong>Additional Info:</strong></p>
+          <h5 *ngIf="selectedPatient?.additionalInfo?.length"><strong>Additional notes:</strong></h5>
           <ng-container *ngFor="let info of selectedPatient.additionalInfo">
-            <p>{{ info }}</p>
+            <p>* {{ info }}</p>
           </ng-container>
         </mat-card-content>
 
         <mat-card-actions>
-          <button mat-button (click)="editPatientRecord()">Edit patient record</button>
+          <button mat-button (click)="editPatientRecord()">Edit</button>
         </mat-card-actions>
       </mat-card>
 

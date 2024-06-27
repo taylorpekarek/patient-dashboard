@@ -16,11 +16,12 @@
 // Patient data table
 .patient-dashboard-data {
   display: flex;
+  justify-content: flex-start;
 }
 
 .patient-table {
   width: 60%;
-  padding: 10px 30px;
+  margin: 10px 40px;
   overflow: auto;
   max-height: 600px;
 
@@ -35,18 +36,36 @@
 
 // Patient details card
 .patient-details {
-  margin: 10px 30px;
-  width: 40%;
+  margin: 10px 0px;
+  width: 30%;
+  max-width: 400px;
 
-  mat-card-header, mat-card-actions {
-    background-color: #f5f5f5;
+  mat-card {
+    border-radius: 8px;
+  }
+
+  mat-card-content {
+    background-color: rgba(144, 144, 144, 0.1);
+  }
+
+  .icon-size {
+    font-size: 40px;
+    height: 40px;
+    width: 40px;
+    color: #707070;
+    opacity: 0.5;
   }
 
   .details-content {
-    margin: 15px 0px;
+    padding: 15px 10px;
+
+    h5 {
+      margin-bottom: 5px;
+      font-size: 12px;
+    }
 
     p {
-      margin: 0;
+      margin: 0 0 0 10px;
     }
   }
 }
