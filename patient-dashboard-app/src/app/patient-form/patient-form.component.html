@@ -1,6 +1,6 @@
 <div class="form-container">
   <form [formGroup]="patientForm">
-    <h1>Add new patient</h1>
+    <h1>{{ isEditingPatient ? 'Update patient' : 'Add new patient' }}</h1>
 
     <div class="top-inputs">
       <mat-form-field>
@@ -36,7 +36,6 @@
         </mat-select>
       </mat-form-field>
     </div>
-
 
     <div formArrayName="addresses" class="address-input-container">
       <div

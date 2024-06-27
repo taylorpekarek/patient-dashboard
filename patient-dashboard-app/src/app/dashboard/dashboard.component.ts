@@ -278,6 +278,7 @@ export class DashboardComponent implements OnInit {
 
   patientList: IPatient[] = [];
   selectedPatient: IPatient;
+  patientToUpdate: IPatient = null;
 
   filterFormGroup: FormGroup;
 
@@ -308,6 +309,7 @@ export class DashboardComponent implements OnInit {
 
   closePatientForm(): void {
     this.showPatientForm = false;
+    this.patientToUpdate = null;
   }
 
   onRowClicked(patient: IPatient): void {
@@ -315,7 +317,8 @@ export class DashboardComponent implements OnInit {
   }
 
   editPatientRecord(): void {
-    console.log(this.selectedPatient);
+    this.patientToUpdate = this.selectedPatient;
+    this.showPatientForm = true;
   }
 
   calculateAge(dateOfBirth: Date): number {

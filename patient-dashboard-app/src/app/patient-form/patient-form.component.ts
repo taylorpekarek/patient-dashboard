@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IPatient, STATUS } from '../models/patient.model';
 import { US_STATES } from '../models/us-state.model';
@@ -8,11 +8,15 @@ import { US_STATES } from '../models/us-state.model';
   templateUrl: './patient-form.component.html',
   styleUrls: ['./patient-form.component.scss']
 })
-export class PatientFormComponent implements OnInit {
+export class PatientFormComponent implements OnInit, OnChanges {
+  @Input() updatePatient: IPatient;
+
   patientForm: FormGroup;
 
   statusOptions = Object.values(STATUS);
   stateOptions = Object.values(US_STATES);
+
+  isEditingPatient: boolean = false;
 
   get addresses() {
     return this.patientForm.get('addresses') as FormArray;
@@ -34,7 +38,26 @@ export class PatientFormComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.updatePatient);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const updatePatientChange = changes['updatePatient'];
+
+    if (updatePatientChange) {
+      const newValue = updatePatientChange?.currentValue as IPatient;
+
+      if (newValue) {
+        this.isEditingPatient = true;
+        // Populate form
+      } else {
+        this.isEditingPatient = false;
+      }
+    }
+  }
+
+
 
   createAddress(): FormGroup {
     return this.fb.group({

@@ -1,5 +1,5 @@
 <div>
-  <app-patient-form *ngIf="showPatientForm"></app-patient-form>
+  <app-patient-form *ngIf="showPatientForm" [updatePatient]="patientToUpdate"></app-patient-form>
 
   <div class="button-container">
     <button
