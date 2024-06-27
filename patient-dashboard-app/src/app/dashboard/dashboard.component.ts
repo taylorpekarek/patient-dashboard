@@ -81,6 +81,72 @@ export class DashboardComponent implements OnInit {
       additionalInfo: [
         'previousVisits: 3'
       ]
+    },
+    {
+      firstName: 'Sarah',
+      lastName: 'Johnson',
+      dateOfBirth: new Date('1992-08-25'),
+      status: STATUS.ACTIVE,
+      addresses: [
+        {
+          street: '101 Pine Ave',
+          city: 'Riverside',
+          state: 'CA',
+          zip: '92501'
+        }
+      ],
+      additionalInfo: [
+        'Allergic to peanuts'
+      ]
+    },
+    {
+      firstName: 'David',
+      lastName: 'Lee',
+      dateOfBirth: new Date('1988-04-12'),
+      status: STATUS.INQUIRY,
+      addresses: [
+        {
+          street: '789 Maple Dr',
+          city: 'Hill Valley',
+          state: 'CA',
+          zip: '91501'
+        }
+      ],
+      additionalInfo: [
+        'Prefers evening appointments'
+      ]
+    },
+    {
+      firstName: 'Anna',
+      middleName: 'C.',
+      lastName: 'Garcia',
+      dateOfBirth: new Date('1995-11-30'),
+      status: STATUS.ONBOARDING,
+      addresses: [
+        {
+          street: '555 Oak Ave',
+          city: 'Bay City',
+          state: 'CA',
+          zip: '93001'
+        }
+      ]
+    },
+    {
+      firstName: 'Daniel',
+      lastName: 'Martinez',
+      dateOfBirth: new Date('1983-02-18'),
+      status: STATUS.CHURNED,
+      addresses: [
+        {
+          street: '987 Pine Ln',
+          city: 'Oceanview',
+          state: 'CA',
+          zip: '94001'
+        }
+      ],
+      additionalInfo: [
+        'History of heart disease'
+      ]
     }
   ];
 
@@ -94,6 +160,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.patientList = this.testPatients;
+    this.selectedPatient = this.patientList[0];
   }
 
   openPatientForm(patientToUpdate?: IPatient) {
