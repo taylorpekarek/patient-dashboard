@@ -46,18 +46,28 @@ export class PatientFormComponent implements OnInit, OnChanges {
     const updatePatientChange = changes['updatePatient'];
 
     if (updatePatientChange) {
-      const newValue = updatePatientChange?.currentValue as IPatient;
+      const editPatientData = updatePatientChange?.currentValue as IPatient;
 
-      if (newValue) {
+      if (editPatientData) {
         this.isEditingPatient = true;
-        // Populate form
+        this.populateForm();
       } else {
         this.isEditingPatient = false;
       }
     }
   }
 
-
+  populateForm() {
+    this.patientForm.patchValue({
+      firstName: this.updatePatient.firstName,
+      middleName: this.updatePatient.middleName,
+      lastName: this.updatePatient.lastName,
+      dateOfBirth: this.updatePatient.dateOfBirth,
+      status: this.updatePatient.status,
+      addresses: this.updatePatient.addresses,
+      additionalFields: this.updatePatient.additionalInfo
+    });
+  }
 
   createAddress(): FormGroup {
     return this.fb.group({
