@@ -175,4 +175,8 @@ export class DashboardComponent implements OnInit {
   onRowClicked(patient: IPatient): void {
     this.selectedPatient = patient;
   }
+
+  editPatientRecord(): void {
+    console.log(this.selectedPatient);
+  }
 }
