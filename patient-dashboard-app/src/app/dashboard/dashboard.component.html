@@ -21,4 +21,38 @@
       Close patient form
     </button>
   </div>
+
+  <div class="patient-table">
+    <table
+      mat-table
+      [dataSource]="testPatients"
+      class="mat-elevation-z1"
+    >
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let patient">
+          {{patient.firstName}} {{patient?.middleName}} {{patient.lastName}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dateOfBirth">
+        <th mat-header-cell *matHeaderCellDef> Date of Birth </th>
+        <td mat-cell *matCellDef="let patient"> {{patient.dateOfBirth | date}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let patient"> {{patient.status}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns;"
+        class="element-row"
+        (click)="onRowClicked(row)"
+      ></tr>
+    </table>
+  </div>
+
 </div>

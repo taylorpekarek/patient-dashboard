@@ -1,6 +1,6 @@
 export interface IPatient {
   firstName: string;
-  middleName: string;
+  middleName?: string;
   lastName: string;
   dateOfBirth: Date;
   status: STATUS;
@@ -19,5 +19,5 @@ export interface IAddress {
   street: string;
   city: string;
   state: string;
-  zipCode: string;
+  zip: string;
 }
