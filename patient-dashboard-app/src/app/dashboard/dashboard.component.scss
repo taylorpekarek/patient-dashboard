@@ -23,7 +23,7 @@
   width: 60%;
   margin: 10px 40px;
   overflow: auto;
-  max-height: 600px;
+  max-height: 675px;
 
   .element-row {
     cursor: pointer;
@@ -34,9 +34,17 @@
   }
 }
 
+.search {
+  margin: 10px 40px;
+
+  mat-form-field {
+    width: 30%;
+  }
+}
+
 // Patient details card
 .patient-details {
-  margin: 10px 0px;
+  margin: 10px;
   width: 30%;
   max-width: 400px;
 

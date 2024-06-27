@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IPatient, STATUS } from '../models/patient.model';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -277,14 +279,26 @@ export class DashboardComponent implements OnInit {
   patientList: IPatient[] = [];
   selectedPatient: IPatient;
 
+  filterFormGroup: FormGroup;
+
   displayedColumns: string[] = ['firstName', 'dateOfBirth', 'status'];
   showPatientForm: boolean = false;
 
-  constructor() {}
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.patientList = this.testPatients;
     this.selectedPatient = this.patientList[0];
+
+    this.filterFormGroup = this.formBuilder.group({
+      searchFilter: new FormControl('')
+    });
+
+    this.filterFormGroup.get('searchFilter').valueChanges.pipe(
+      debounceTime(250)
+    ).subscribe((searchStr: string) => {
+      console.log(searchStr)
+    });
   }
 
   openPatientForm(patientToUpdate?: IPatient) {

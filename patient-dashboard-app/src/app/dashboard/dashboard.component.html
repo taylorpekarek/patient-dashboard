@@ -22,6 +22,15 @@
     </button>
   </div>
 
+  <div class="search">
+    <form [formGroup]="filterFormGroup">
+      <mat-form-field>
+        <mat-label>Search patients</mat-label>
+        <input matInput formControlName="searchFilter">
+      </mat-form-field>
+    </form>
+  </div>
+
   <div class="patient-dashboard-data">
     <div class="patient-table">
       <table
@@ -32,7 +41,7 @@
         <ng-container matColumnDef="firstName">
           <th mat-header-cell *matHeaderCellDef>Name</th>
           <td mat-cell *matCellDef="let patient">
-            {{patient.firstName}} {{patient?.middleName}} {{patient.lastName}}
+            {{patient.firstName}} {{patient.middleName}} {{patient.lastName}}
           </td>
         </ng-container>
 
@@ -62,7 +71,7 @@
           <div mat-card-avatar>
             <mat-icon class="icon-size">account_circle</mat-icon>
           </div>
-          <mat-card-title>{{ selectedPatient.firstName }} {{ selectedPatient?.middleName }} {{ selectedPatient.lastName }}</mat-card-title>
+          <mat-card-title>{{ selectedPatient.firstName }} {{ selectedPatient.middleName }} {{ selectedPatient.lastName }}</mat-card-title>
           <mat-card-subtitle>{{ selectedPatient.status }}</mat-card-subtitle>
         </mat-card-header>
 
