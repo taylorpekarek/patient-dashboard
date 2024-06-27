@@ -1,3 +1,4 @@
+// Form open/close button
 .button-container {
   display: flex;
   justify-content: center;
@@ -5,16 +6,21 @@
 
 .open-form-button {
   width: 300px;
-  margin: 50px;
+  margin: 20px;
 }
 
 .close-form-button {
   width: 300px;
 }
 
+// Patient data table
+.patient-dashboard-data {
+  display: flex;
+}
+
 .patient-table {
   width: 60%;
-  padding: 10px;
+  padding: 10px 30px;
 }
 
 .element-row {
@@ -23,4 +29,23 @@
 
 .element-row:hover {
   background-color: #f5f5f5;
+}
+
+
+// Patient details card
+.patient-details {
+  margin: 10px 30px;
+  width: 40%;
+
+  mat-card-header, mat-card-actions {
+    background-color: #f5f5f5;
+  }
+
+  .details-content {
+    margin: 15px 0px;
+
+    p {
+      margin: 0;
+    }
+  }
 }

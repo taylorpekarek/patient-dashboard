@@ -22,37 +22,68 @@
     </button>
   </div>
 
-  <div class="patient-table">
-    <table
-      mat-table
-      [dataSource]="testPatients"
-      class="mat-elevation-z1"
-    >
-      <ng-container matColumnDef="firstName">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let patient">
-          {{patient.firstName}} {{patient?.middleName}} {{patient.lastName}}
-        </td>
-      </ng-container>
+  <div class="patient-dashboard-data">
+    <div class="patient-table">
+      <table
+        mat-table
+        [dataSource]="testPatients"
+        class="mat-elevation-z1"
+      >
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let patient">
+            {{patient.firstName}} {{patient?.middleName}} {{patient.lastName}}
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="dateOfBirth">
-        <th mat-header-cell *matHeaderCellDef> Date of Birth </th>
-        <td mat-cell *matCellDef="let patient"> {{patient.dateOfBirth | date}} </td>
-      </ng-container>
+        <ng-container matColumnDef="dateOfBirth">
+          <th mat-header-cell *matHeaderCellDef> Date of Birth </th>
+          <td mat-cell *matCellDef="let patient"> {{patient.dateOfBirth | date}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Status </th>
-        <td mat-cell *matCellDef="let patient"> {{patient.status}} </td>
-      </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let patient"> {{patient.status}} </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr
-        mat-row
-        *matRowDef="let row; columns: displayedColumns;"
-        class="element-row"
-        (click)="onRowClicked(row)"
-      ></tr>
-    </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns;"
+          class="element-row"
+          (click)="onRowClicked(row)"
+        ></tr>
+      </table>
+    </div>
+
+    <div *ngIf="selectedPatient" class="patient-details">
+      <mat-card appearance="outlined">
+        <mat-card-header>
+          <div mat-card-avatar><mat-icon>account_circle</mat-icon></div>
+          <mat-card-title>{{ selectedPatient.firstName }} {{ selectedPatient?.middleName }} {{ selectedPatient.lastName }}</mat-card-title>
+          <mat-card-subtitle>{{ selectedPatient.status }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content class="details-content">
+          <ng-container *ngFor="let address of selectedPatient.addresses; let i=index">
+            <p><strong>Address {{ i + 1 }}:</strong></p>
+            <p>{{ address.street }}</p>
+            <p>{{ address.city }}, {{ address.state }} {{ address.zip }}</p>
+            <br>
+          </ng-container>
+
+          <p><strong>Additional Info:</strong></p>
+          <ng-container *ngFor="let info of selectedPatient.additionalInfo">
+            <p>{{ info }}</p>
+          </ng-container>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-button>Edit</button>
+          <button mat-button>Delete</button>
+        </mat-card-actions>
+      </mat-card>
+
+    </div>
   </div>
-
 </div>
