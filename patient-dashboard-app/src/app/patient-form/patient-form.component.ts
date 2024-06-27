@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IPatient, STATUS } from '../models/patient.model';
+import { IAddress, IPatient, STATUS } from '../models/patient.model';
 import { US_STATES } from '../models/us-state.model';
 
 @Component({
@@ -26,7 +26,9 @@ export class PatientFormComponent implements OnInit, OnChanges {
     return this.patientForm.get('additionalFields') as FormArray;
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
     this.patientForm = this.fb.group({
       firstName: ['', Validators.required],
       middleName: [''],
@@ -36,10 +38,6 @@ export class PatientFormComponent implements OnInit, OnChanges {
       addresses: this.fb.array([this.createAddress()]),
       additionalFields: this.fb.array([])
     });
-  }
-
-  ngOnInit(): void {
-    console.log(this.updatePatient);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -63,19 +61,36 @@ export class PatientFormComponent implements OnInit, OnChanges {
       middleName: this.updatePatient.middleName,
       lastName: this.updatePatient.lastName,
       dateOfBirth: this.updatePatient.dateOfBirth,
-      status: this.updatePatient.status,
-      addresses: this.updatePatient.addresses,
-      additionalFields: this.updatePatient.additionalInfo
+      status: this.updatePatient.status
+    });
+
+    this.addresses.clear();
+    this.updatePatient.addresses.forEach(address => {
+      this.addresses.push(this.createAddress(address));
+    });
+
+    this.additionalFields.clear();
+    this.updatePatient.additionalInfo.forEach(info => {
+      this.additionalFields.push(this.fb.control(info));
     });
   }
 
-  createAddress(): FormGroup {
-    return this.fb.group({
-      street: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      zip: ['', Validators.required]
-    });
+  createAddress(newAddress?: IAddress): FormGroup {
+    if (newAddress) {
+      return this.fb.group({
+        street: [newAddress.street, Validators.required],
+        city: [newAddress.city, Validators.required],
+        state: [newAddress.state, Validators.required],
+        zip: [newAddress.zip, Validators.required]
+      });
+    } else {
+      return this.fb.group({
+        street: ['', Validators.required],
+        city: ['', Validators.required],
+        state: ['', Validators.required],
+        zip: ['', Validators.required]
+      });
+    }
   }
 
   addAddress(): void {
