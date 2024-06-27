@@ -1,6 +1,9 @@
 .form-container {
-  margin: 30px;
+  margin: 20px;
+  padding: 30px;
   display: flex;
+  border: 1px solid #707070;
+  border-radius: 6px;
 }
 
 mat-form-field {
@@ -24,4 +27,9 @@ mat-form-field {
   .state-selector, .zip-input {
     width: 10%;
   }
+}
+
+.submit-btn {
+  margin: 10px;
+  background-color: #707070;
 }
