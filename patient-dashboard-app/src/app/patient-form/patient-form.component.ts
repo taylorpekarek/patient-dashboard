@@ -125,13 +125,17 @@ export class PatientFormComponent implements OnChanges {
           verticalPosition: 'top',
           duration: 5000
         });
-        this.closeForm.emit(true);
+        this.closePatientForm();
       }).catch(() => {
         this.snackBar.open('New patient save failed', 'Close', {
           verticalPosition: 'top'
         });
       });
     }
+  }
+
+  closePatientForm() : void {
+    this.closeForm.emit(true);
   }
 
   private createNewPatient(): IPatient {

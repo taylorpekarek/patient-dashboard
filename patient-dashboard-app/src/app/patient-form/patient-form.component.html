@@ -91,7 +91,7 @@
       <div *ngFor="let field of additionalFields.controls; let i=index">
         <mat-form-field appearance="fill">
           <mat-label>Additional info</mat-label>
-          <input matInput [formControlName]="i">
+          <textarea matInput [formControlName]="i"></textarea>
         </mat-form-field>
 
         <button
@@ -106,12 +106,21 @@
     </div>
 
     <button
-      class="submit-btn"
+      class="form-btn"
       mat-flat-button
       color="primary"
       (click)="savePatientRecord()"
     >
       Save patient
+    </button>
+
+    <button
+      class="form-btn"
+      mat-flat-button
+      color="secondary"
+      (click)="closePatientForm()"
+    >
+      Close
     </button>
 
     <p *ngIf="hasFormError" class="error-msg">
