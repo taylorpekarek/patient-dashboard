@@ -27,24 +27,25 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.patientService.getPatients().subscribe((resp) => {
       this.patientList = resp;
+      this.selectedPatient = this.patientList[0];
     })
-
-    this.selectedPatient = this.patientList[0];
 
     this.filterFormGroup = this.formBuilder.group({
       searchFilter: new FormControl('')
     });
 
     this.filterFormGroup.get('searchFilter').valueChanges.pipe(
-      debounceTime(250)
+      debounceTime(300)
     ).subscribe((searchStr: string) => {
-      console.log(searchStr)
+      this.patientService.getPatients(searchStr).subscribe((resp) => {
+        this.patientList = resp;
+        this.selectedPatient = this.patientList[0];
+      })
     });
   }
 
-  openPatientForm(patientToUpdate?: IPatient) {
+  openPatientForm() {
     this.showPatientForm = true;
-    // Handle opening form in either add new mode or edit mode depending on if param is passed in or not
   }
 
   closePatientForm(): void {

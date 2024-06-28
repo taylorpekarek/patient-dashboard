@@ -20,20 +20,27 @@ export class PatientService {
     this.patientsCollection = collection(this.firestore, PATIENT_COLLECTION);
   }
 
-  // GET list of all patients
-  getPatients(): Observable<IPatient[]> {
+  // GET list of all patients and filter is a search string is passed in
+  getPatients(searchTerm?: string): Observable<IPatient[]> {
     const patients$ = collectionData(this.patientsCollection, { idField: 'id' });
 
     return patients$.pipe(
       map((patients) => {
-        const convertedPatients = patients.map(patient => {
+        let patientList = patients;
+
+        if (searchTerm) {
+          patientList = patients.filter((patient) =>
+            this.matchesSearchTerm(patient, searchTerm)
+          );
+        }
+
+        return patientList.map(patient => {
           return {
             ...patient,
             dateOfBirth: patient['dateOfBirth'].toDate()
           } as IPatient;
-        });
 
-        return convertedPatients;
+        });
       })
     );
   }
@@ -42,5 +49,15 @@ export class PatientService {
   addPatient(patient: IPatient): Promise<void> {
     const newDocRef = doc(this.patientsCollection);
     return setDoc(newDocRef, patient);
+  }
+
+  private matchesSearchTerm(patient: any, searchTerm: string): boolean {
+    if (!searchTerm) {
+      return true;
+    }
+    const lowerSearchTerm = searchTerm.toLowerCase();
+    return Object.values(patient).some(value =>
+      value.toString().toLowerCase().includes(lowerSearchTerm)
+    );
   }
 }
