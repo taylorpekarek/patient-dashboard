@@ -1,12 +1,6 @@
 // Form open/close button
-.button-container {
-  display: flex;
-  justify-content: center;
-}
-
 .open-form-button {
-  width: 300px;
-  margin: 20px;
+  margin: 10px 50px;
 }
 
 .close-form-button {
@@ -21,9 +15,13 @@
 
 .patient-table {
   width: 60%;
-  margin: 10px 40px;
+  margin: 0px 40px;
   overflow: auto;
   max-height: 675px;
+
+  table {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+  }
 
   .element-row {
     cursor: pointer;
@@ -35,10 +33,15 @@
 }
 
 .search {
-  margin: 10px 40px;
+  margin: 20px 40px;
+  display: flex;
 
-  mat-form-field {
-    width: 30%;
+  form {
+    width: 40%;
+
+    mat-form-field {
+      width: 100%;
+    }
   }
 }
 
@@ -60,8 +63,7 @@
     font-size: 40px;
     height: 40px;
     width: 40px;
-    color: #707070;
-    opacity: 0.5;
+    color: #f7c83e;
   }
 
   .details-content {
