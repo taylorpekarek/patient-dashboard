@@ -4,7 +4,8 @@ import {
   collection,
   collectionData,
   doc,
-  setDoc
+  setDoc,
+  updateDoc
 } from '@angular/fire/firestore';
 import { IPatient } from '../models/patient.model';
 import { Observable, map } from 'rxjs';
@@ -49,6 +50,12 @@ export class PatientService {
   addPatient(patient: IPatient): Promise<void> {
     const newDocRef = doc(this.patientsCollection);
     return setDoc(newDocRef, patient);
+  }
+
+  // PUT update patient
+  updatePatient(patient: Partial<IPatient>): Promise<void> {
+    const patientDocRef = doc(this.firestore, `${PATIENT_COLLECTION}/${patient.id}`);
+    return updateDoc(patientDocRef, patient);
   }
 
   private matchesSearchTerm(patient: any, searchTerm: string): boolean {

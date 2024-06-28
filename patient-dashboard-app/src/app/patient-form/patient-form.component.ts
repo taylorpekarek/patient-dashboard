@@ -115,12 +115,23 @@ export class PatientFormComponent implements OnChanges {
       return;
     }
 
-    if (this.isEditingPatient) {
-      // Update record
-    } else {
-      const newPatient: IPatient = this.createNewPatient();
+    const patientObj: IPatient = this.buildPatientObj();
 
-      this.patientService.addPatient(newPatient).then(() => {
+    if (this.isEditingPatient) {
+      patientObj.id = this.updatePatient.id;
+      this.patientService.updatePatient(patientObj).then(() => {
+        this.snackBar.open('Patient updated successfully!', 'Close', {
+          verticalPosition: 'top',
+          duration: 5000
+        });
+        this.closePatientForm();
+      }).catch(() => {
+        this.snackBar.open('Patient update failed', 'Close', {
+          verticalPosition: 'top'
+        });
+      });
+    } else {
+      this.patientService.addPatient(patientObj).then(() => {
         this.snackBar.open('New patient added successfully!', 'Close', {
           verticalPosition: 'top',
           duration: 5000
@@ -138,7 +149,7 @@ export class PatientFormComponent implements OnChanges {
     this.closeForm.emit(true);
   }
 
-  private createNewPatient(): IPatient {
+  private buildPatientObj(): IPatient {
     const formValue = this.patientForm.value;
 
     const addresses: IAddress[] = formValue.addresses.map((address: IAddress) => ({
