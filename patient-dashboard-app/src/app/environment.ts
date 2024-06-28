@@ -1,4 +1,4 @@
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyA0V38L47RHhk-sgkUDJ1q5y1rlCMIbuYI",
   authDomain: "patient-dashboard-app-db.firebaseapp.com",
   databaseURL: "https://patient-dashboard-app-db-default-rtdb.firebaseio.com",
