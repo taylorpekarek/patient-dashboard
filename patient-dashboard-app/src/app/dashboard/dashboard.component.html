@@ -85,7 +85,10 @@
 
           <h5 *ngIf="selectedPatient?.additionalInfo?.length"><strong>Additional notes:</strong></h5>
           <ng-container *ngFor="let info of selectedPatient.additionalInfo">
-            <p>* {{ info }}</p>
+            <div class="info-container">
+              <mat-icon class="icon-size-small">hive</mat-icon>
+              <p>{{ info }}</p>
+            </div>
           </ng-container>
         </mat-card-content>
 

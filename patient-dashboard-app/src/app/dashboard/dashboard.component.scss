@@ -48,7 +48,7 @@
 // Patient details card
 .patient-details {
   margin: 10px;
-  width: 30%;
+  width: 35%;
   max-width: 400px;
 
   mat-card {
@@ -66,6 +66,18 @@
     color: #f7c83e;
   }
 
+  .icon-size-small {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    color: #f7c83e;
+    margin-top: 2px;
+  }
+
+  .info-container {
+    display: flex;
+  }
+
   .details-content {
     padding: 15px 10px;
 
@@ -76,6 +88,7 @@
 
     p {
       margin: 0 0 0 10px;
+      width: fit-content;
     }
   }
 }
