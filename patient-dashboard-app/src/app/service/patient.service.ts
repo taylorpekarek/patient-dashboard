@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, doc, docData } from '@angular/fire/firestore';
-import { IAddress, IPatient } from '../models/patient.model';
-import { Observable, Timestamp, combineLatest, map, switchMap } from 'rxjs';
+import {
+  Firestore,
+  collection,
+  collectionData,
+  doc,
+  setDoc
+} from '@angular/fire/firestore';
+import { IPatient } from '../models/patient.model';
+import { Observable, map } from 'rxjs';
 
 const PATIENT_COLLECTION = 'patient';
-const ADDRESS_COLLECTION = 'address';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,30 +20,27 @@ export class PatientService {
     this.patientsCollection = collection(this.firestore, PATIENT_COLLECTION);
   }
 
+  // GET list of all patients
   getPatients(): Observable<IPatient[]> {
-    const patients = collectionData(this.patientsCollection, { idField: 'id' });// as Observable<IPatient[]>;
+    const patients$ = collectionData(this.patientsCollection, { idField: 'id' });
 
-    return patients.pipe(
-      switchMap(patientData => {
-        const patientObservables = patientData.map(patient => {
+    return patients$.pipe(
+      map((patients) => {
+        const convertedPatients = patients.map(patient => {
+          return {
+            ...patient,
+            dateOfBirth: patient['dateOfBirth'].toDate()
+          } as IPatient;
+        });
 
-          const convertedPatient = { ...patient, dateOfBirth: patient['dateOfBirth'].toDate() } as IPatient;
-
-          return this.getPatientAddresses(convertedPatient.id).pipe(
-            map(addresses => ({
-              ...convertedPatient,
-              addresses
-            }))
-          )
-      });
-
-        return combineLatest(patientObservables);
+        return convertedPatients;
       })
     );
   }
 
-  getPatientAddresses(patientId: string) {
-    const addressesCollection = collection(this.patientsCollection, patientId, 'address');
-    return collectionData(addressesCollection, { idField: 'id' }) as Observable<IAddress[]>;
+  // POST new patient
+  addPatient(patient: IPatient): Promise<void> {
+    const newDocRef = doc(this.patientsCollection);
+    return setDoc(newDocRef, patient);
   }
 }
