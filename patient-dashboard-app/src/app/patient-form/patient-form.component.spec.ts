@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,11 +28,11 @@ describe('PatientFormComponent', () => {
     additionalInfo: ['Info 1', 'Info 2']
   };
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync(() => {
     const patientService = jasmine.createSpyObj('PatientService', ['updatePatient', 'addPatient']);
     const snackBar = jasmine.createSpyObj('MatSnackBar', ['open']);
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [PatientFormComponent],
       imports: [
         ReactiveFormsModule,
@@ -58,7 +58,7 @@ describe('PatientFormComponent', () => {
     fixture = TestBed.createComponent(PatientFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
