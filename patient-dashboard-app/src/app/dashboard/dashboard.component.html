@@ -1,5 +1,9 @@
 <div>
-  <app-patient-form *ngIf="showPatientForm" [updatePatient]="patientToUpdate"></app-patient-form>
+  <app-patient-form
+    *ngIf="showPatientForm"
+    [updatePatient]="patientToUpdate"
+    (closeForm)="closePatientForm()"
+  ></app-patient-form>
 
   <div class="button-container">
     <button

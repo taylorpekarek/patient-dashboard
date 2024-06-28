@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IAddress, IPatient, STATUS } from '../models/patient.model';
 import { US_STATES } from '../models/us-state.model';
@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class PatientFormComponent implements OnChanges {
   @Input() updatePatient: IPatient;
+  @Output() closeForm = new EventEmitter<boolean>();
 
   patientForm: FormGroup;
 
@@ -124,7 +125,7 @@ export class PatientFormComponent implements OnChanges {
           verticalPosition: 'top',
           duration: 5000
         });
-        this.resetForm();
+        this.closeForm.emit(true);
       }).catch(() => {
         this.snackBar.open('New patient save failed', 'Close', {
           verticalPosition: 'top'
@@ -151,11 +152,5 @@ export class PatientFormComponent implements OnChanges {
       addresses: addresses,
       additionalInfo: additionalInfo
     };
-  }
-
-  private resetForm(): void {
-    this.patientForm.reset();
-    this.patientForm.setControl('addresses', this.fb.array([this.createAddress()]));
-    this.patientForm.setControl('additionalFields', this.fb.array([]));
   }
 }
