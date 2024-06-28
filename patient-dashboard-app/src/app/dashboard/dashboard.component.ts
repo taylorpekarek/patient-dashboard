@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
       searchFilter: new FormControl('')
     });
 
+    // Detects when the user is typing in the search bar and updates the table and other UI components
     this.filterFormGroup.get('searchFilter').valueChanges.pipe(
       debounceTime(300)
     ).subscribe((searchStr: string) => {
@@ -44,24 +45,31 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  // Opens the patient form to either add a new or edit existing patient
   openPatientForm() {
     this.showPatientForm = true;
   }
 
+  // Closes the patient form and sets the variable storing patients to be edited to null
   closePatientForm(): void {
     this.showPatientForm = false;
     this.patientToUpdate = null;
   }
 
+  // Sets the selected patient to whichever patient record was clicked in the data table
   onRowClicked(patient: IPatient): void {
     this.selectedPatient = patient;
   }
 
+  // Sets the patientToUpdate to whichever patient record is being displayed in the details
+  // card and opens the patient form so the user can edit the record
   editPatientRecord(): void {
     this.patientToUpdate = this.selectedPatient;
     this.showPatientForm = true;
   }
 
+  // Helper function to calculate the patients age based on their birth date
+  // Though it would be helpful for the provider to quickly see how old the patient is
   calculateAge(dateOfBirth: Date): number {
     const today = new Date();
     const birthDate = new Date(dateOfBirth);

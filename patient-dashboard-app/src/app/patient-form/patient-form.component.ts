@@ -61,6 +61,7 @@ export class PatientFormComponent implements OnChanges {
     }
   }
 
+  // Fills form in with patient data the user intends to update
   populateForm() {
     this.patientForm.patchValue({
       firstName: this.updatePatient.firstName,
@@ -81,6 +82,8 @@ export class PatientFormComponent implements OnChanges {
     });
   }
 
+  // Creates the address FormGroup that is part of a formArray
+  // If an address is passed in, then it populates the form with that data
   createAddress(newAddress?: IAddress): FormGroup {
     if (newAddress) {
       return this.fb.group({
@@ -99,14 +102,18 @@ export class PatientFormComponent implements OnChanges {
     }
   }
 
+  // Adds another address FormGroup to the addresses FormArray
   addAddress(): void {
     this.addresses.push(this.createAddress());
   }
 
+  // Adds another additional info field FormGroup to the additionalFields FormArray
   addAdditionalField(): void {
     this.additionalFields.push(this.fb.control(''));
   }
 
+  // If not in editing mode a new patient record is saved
+  // If in editing mode an existing patient record is updtaed
   savePatientRecord(): void {
     this.hasFormError = false;
 
@@ -145,10 +152,12 @@ export class PatientFormComponent implements OnChanges {
     }
   }
 
+  // Communicates back to the parent component to closed the patient form
   closePatientForm() : void {
     this.closeForm.emit(true);
   }
 
+  // Take all the data from the FormGroup and creates an object than can be saved
   private buildPatientObj(): IPatient {
     const formValue = this.patientForm.value;
 
