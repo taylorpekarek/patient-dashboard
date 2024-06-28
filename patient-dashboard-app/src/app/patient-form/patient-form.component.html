@@ -74,6 +74,7 @@
         >
           <mat-icon>add</mat-icon>
         </button>
+
       </div>
     </div>
 
@@ -112,5 +113,9 @@
     >
       Save patient
     </button>
+
+    <p *ngIf="hasFormError" class="error-msg">
+      Fill in all required fields before saving
+    </p>
   </form>
 </div>

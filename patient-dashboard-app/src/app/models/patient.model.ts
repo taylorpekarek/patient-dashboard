@@ -1,5 +1,5 @@
 export interface IPatient {
-  id: string;
+  id?: string;
   firstName: string;
   middleName?: string;
   lastName: string;
@@ -17,7 +17,7 @@ export enum STATUS {
 }
 
 export interface IAddress {
-  id: string;
+  id?: string;
   street: string;
   city: string;
   state: string;

@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IAddress, IPatient, STATUS } from '../models/patient.model';
 import { US_STATES } from '../models/us-state.model';
+import { PatientService } from '../service/patient.service';
 
 @Component({
   selector: 'app-patient-form',
@@ -17,6 +18,7 @@ export class PatientFormComponent implements OnChanges {
   stateOptions = Object.values(US_STATES);
 
   isEditingPatient: boolean = false;
+  hasFormError: boolean = false;
 
   get addresses() {
     return this.patientForm.get('addresses') as FormArray;
@@ -26,7 +28,10 @@ export class PatientFormComponent implements OnChanges {
     return this.patientForm.get('additionalFields') as FormArray;
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private patientService: PatientService,
+    private fb: FormBuilder
+  ) {
     this.patientForm = this.fb.group({
       firstName: ['', Validators.required],
       middleName: [''],
@@ -100,9 +105,44 @@ export class PatientFormComponent implements OnChanges {
   }
 
   savePatientRecord(): void {
-    // Save new patient in DB
+    this.hasFormError = false;
 
-    this.resetForm();
+    if (this.patientForm.invalid) {
+      this.hasFormError = true;
+      return;
+    }
+
+    if (this.isEditingPatient) {
+      // Update record
+    } else {
+      const newPatient: IPatient = this.createNewPatient();
+
+      this.patientService.addPatient(newPatient).then(() => {
+        this.resetForm();
+      }).catch(error => {
+        console.error('Error adding patient: ', error);
+      });
+    }
+  }
+
+  private createNewPatient(): IPatient {
+    const formValue = this.patientForm.value;
+
+    const addresses: IAddress[] = formValue.addresses.map((address: IAddress) => ({
+      ...address
+    }));
+
+    const additionalInfo: string[] = formValue.additionalFields;
+
+    return {
+      firstName: formValue.firstName,
+      middleName: formValue.middleName,
+      lastName: formValue.lastName,
+      dateOfBirth: new Date(formValue.dateOfBirth),
+      status: formValue.status,
+      addresses: addresses,
+      additionalInfo: additionalInfo
+    };
   }
 
   private resetForm(): void {
