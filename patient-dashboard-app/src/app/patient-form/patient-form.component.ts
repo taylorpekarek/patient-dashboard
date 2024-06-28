@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IAddress, IPatient, STATUS } from '../models/patient.model';
 import { US_STATES } from '../models/us-state.model';
 import { PatientService } from '../service/patient.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-patient-form',
@@ -30,7 +31,8 @@ export class PatientFormComponent implements OnChanges {
 
   constructor(
     private patientService: PatientService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar
   ) {
     this.patientForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -118,9 +120,15 @@ export class PatientFormComponent implements OnChanges {
       const newPatient: IPatient = this.createNewPatient();
 
       this.patientService.addPatient(newPatient).then(() => {
+        this.snackBar.open('New patient added successfully!', 'Close', {
+          verticalPosition: 'top',
+          duration: 5000
+        });
         this.resetForm();
-      }).catch(error => {
-        console.error('Error adding patient: ', error);
+      }).catch(() => {
+        this.snackBar.open('New patient save failed', 'Close', {
+          verticalPosition: 'top'
+        });
       });
     }
   }
