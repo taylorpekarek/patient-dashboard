@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IAddress, IPatient, STATUS } from '../models/patient.model';
 import { US_STATES } from '../models/us-state.model';
@@ -8,7 +8,7 @@ import { US_STATES } from '../models/us-state.model';
   templateUrl: './patient-form.component.html',
   styleUrls: ['./patient-form.component.scss']
 })
-export class PatientFormComponent implements OnInit, OnChanges {
+export class PatientFormComponent implements OnChanges {
   @Input() updatePatient: IPatient;
 
   patientForm: FormGroup;
@@ -26,9 +26,7 @@ export class PatientFormComponent implements OnInit, OnChanges {
     return this.patientForm.get('additionalFields') as FormArray;
   }
 
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder) {
     this.patientForm = this.fb.group({
       firstName: ['', Validators.required],
       middleName: [''],

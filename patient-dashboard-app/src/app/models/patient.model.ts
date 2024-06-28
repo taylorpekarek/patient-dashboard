@@ -1,4 +1,5 @@
 export interface IPatient {
+  id: string;
   firstName: string;
   middleName?: string;
   lastName: string;
@@ -16,6 +17,7 @@ export enum STATUS {
 }
 
 export interface IAddress {
+  id: string;
   street: string;
   city: string;
   state: string;
